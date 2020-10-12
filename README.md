@@ -14,4 +14,4 @@ Using the blueprint and based on what you saw on the videos, clone this video pl
 - [ ] Muted/Unmuted Button
 - [ ] When the video finishes, make it restart automatically.
 - [ ] Show Current Time / Total Time
-- [ ] Use Fontawesome
+- [x] Use Fontawesome
