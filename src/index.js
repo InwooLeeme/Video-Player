@@ -5,6 +5,7 @@ const playBtn = document.getElementById('playBtn');
 const volumeBtn = document.getElementById('volume');
 const currentTime = document.getElementById('currentTime');
 const totalTime = document.getElementById('totalTime');
+const durationSliderBar = document.getElementById('duration');
 
 function playClick(){
     if(videoPlayer.paused){
@@ -43,7 +44,12 @@ function loadedTime(){
 const showCurrentTime = () =>{
     let currentDuration = Math.floor(videoPlayer.currentTime);
     currentTime.innerHTML = `00:${currentDuration < 10 ? `0${currentDuration}` : `${currentDuration}`}`;
-    
+    const totalDuration = Math.floor(videoPlayer.duration);
+    durationSliderBar.value = currentDuration;
+    durationSliderBar.max = totalDuration;
+    if(totalDuration === currentDuration){
+        videoPlayer.load();
+    }
 }
 
 function init(){
