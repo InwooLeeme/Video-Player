@@ -2,7 +2,7 @@
 const videoPlayerContainer = document.querySelector('.videoPlayer');
 let videoPlayer = document.querySelector('.videoPlayer video');
 const playBtn = document.getElementById('playBtn');
-const playBtnIcon = document.querySelector('#playBtn i');
+const volumeBtn = document.getElementById('volume');
 
 function playClick(){
     if(videoPlayer.paused){
@@ -22,9 +22,21 @@ function knowKeyCode(event){
     }
 }
 
+function volumeChange(){
+    if(videoPlayer.muted === false){
+        videoPlayer.muted = true;
+        volumeBtn.innerHTML = `<i class="fas fa-volume-off"></i>`;
+    }
+    else{
+        videoPlayer.muted = false;
+        volumeBtn.innerHTML = `<i class="fas fa-volume-up"></i>`;
+    }
+}
+
 function init(){
     playBtn.addEventListener('click',playClick);
     window.addEventListener('keydown',knowKeyCode);
+    volumeBtn.addEventListener('click',volumeChange);
 }
 
 if(videoPlayerContainer){
