@@ -1,11 +1,15 @@
 
 const videoPlayerContainer = document.querySelector('.videoPlayer');
 let videoPlayer = document.querySelector('.videoPlayer video');
+const videoController = document.getElementById('videoController');
 const playBtn = document.getElementById('playBtn');
 const volumeBtn = document.getElementById('volume');
 const currentTime = document.getElementById('currentTime');
 const totalTime = document.getElementById('totalTime');
 const durationSliderBar = document.getElementById('duration');
+let isHidden = false;
+let hideTimeout;
+let showTimeout;
 
 function playClick(){
     if(videoPlayer.paused){
@@ -52,13 +56,36 @@ const showCurrentTime = () =>{
     }
 }
 
+function hideMouse(){
+   document.body.style.cursor = 'none';
+   isHidden = true;
+   clearTimeout(hideTimeout);
+   videoPlayer.addEventListener('mousemove',showMouse);
+   videoController.classList.add('QsE3');
+}
+
+function showMouse(){
+    document.body.style.cursor = "default";
+    isHidden = false;
+    clearTimeout(showTimeout);
+    videoController.classList.remove('QsE3');
+}
+
+function watchMouseMove(){
+    hideTimeout = setTimeout(hideMouse,6000);
+    showTimeout = setTimeout(showMouse,500);
+}
+
 function init(){
     playBtn.addEventListener('click',playClick);
     window.addEventListener('keydown',knowKeyCode);
     volumeBtn.addEventListener('click',volumeChange);
     videoPlayer.addEventListener('loadedmetadata',loadedTime);
+    window.addEventListener('mousemove',watchMouseMove);
     setInterval(showCurrentTime,1000);
 }
+
+
 
 if(videoPlayerContainer){
     init();
