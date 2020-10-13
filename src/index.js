@@ -3,6 +3,8 @@ const videoPlayerContainer = document.querySelector('.videoPlayer');
 let videoPlayer = document.querySelector('.videoPlayer video');
 const playBtn = document.getElementById('playBtn');
 const volumeBtn = document.getElementById('volume');
+const currentTime = document.getElementById('currentTime');
+const totalTime = document.getElementById('totalTime');
 
 function playClick(){
     if(videoPlayer.paused){
@@ -33,12 +35,26 @@ function volumeChange(){
     }
 }
 
+function loadedTime(){
+    const totalDuration = Math.floor(videoPlayer.duration);
+    totalTime.innerHTML = `00:${totalDuration}`;
+}
+
+const showCurrentTime = () =>{
+    let currentDuration = Math.floor(videoPlayer.currentTime);
+    currentTime.innerHTML = `00:${currentDuration < 10 ? `0${currentDuration}` : `${currentDuration}`}`;
+    
+}
+
 function init(){
     playBtn.addEventListener('click',playClick);
     window.addEventListener('keydown',knowKeyCode);
     volumeBtn.addEventListener('click',volumeChange);
+    videoPlayer.addEventListener('loadedmetadata',loadedTime);
+    setInterval(showCurrentTime,1000);
 }
 
 if(videoPlayerContainer){
     init();
 }
+
